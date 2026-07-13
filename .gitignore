@@ -1,0 +1,7 @@
+# build artifacts
+*.o
+*.a
+*.so
+*.test
+*.out
+/csqlite

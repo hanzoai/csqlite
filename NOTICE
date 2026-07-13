@@ -1,0 +1,18 @@
+Hanzo csqlite
+Copyright (c) 2026 Hanzo AI, Inc.
+
+This product includes software forked from go-sqlite3, the cgo SQLite bindings
+for Go's database/sql, originally authored by Yasuhiro Matsumoto and released
+under the MIT License:
+
+    Copyright (c) 2014 Yasuhiro Matsumoto
+
+The full upstream MIT license text is preserved in LICENSE. The forked sources
+(the SQLite amalgamation sqlite3-binding.c/.h, the cgo driver sqlite3.go, the
+callback trampolines, and the optional feature files) are rebranded to
+`package csqlite` and carried in-tree so the Hanzo stack depends on no external
+go-sqlite3 module. Encryption at rest (SQLCipher) is obtained by linking the
+system libsqlcipher via `-tags libsqlite3` — unchanged from upstream.
+
+Embedded within sqlite3-binding.c/.h is the SQLite amalgamation itself, which is
+in the public domain (https://www.sqlite.org/copyright.html).

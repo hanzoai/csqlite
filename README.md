@@ -1,4 +1,4 @@
-# csqlite
+# Hanzo csqlite
 
 Self-contained cgo SQLite bindings for Go's `database/sql` — the `c` is the
 C/cgo layer. This is a fork of [go-sqlite3](https://github.com/mattn/go-sqlite3)

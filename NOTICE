@@ -1,18 +1,38 @@
 Hanzo csqlite
 Copyright (c) 2026 Hanzo AI, Inc.
 
-This product includes software forked from go-sqlite3, the cgo SQLite bindings
-for Go's database/sql, originally authored by Yasuhiro Matsumoto and released
-under the MIT License:
+Forked from https://github.com/mattn/go-sqlite3 — the cgo SQLite bindings for
+Go's database/sql — originally authored by Yasuhiro Matsumoto and released under
+the MIT License:
 
     Copyright (c) 2014 Yasuhiro Matsumoto
 
-The full upstream MIT license text is preserved in LICENSE. The forked sources
-(the SQLite amalgamation sqlite3-binding.c/.h, the cgo driver sqlite3.go, the
-callback trampolines, and the optional feature files) are rebranded to
-`package csqlite` and carried in-tree so the Hanzo stack depends on no external
-go-sqlite3 module. Encryption at rest (SQLCipher) is obtained by linking the
-system libsqlcipher via `-tags libsqlite3` — unchanged from upstream.
+Portions (the crypt encoders and the user-auth extension) originate from
+G.J.R. Timmer, also under the MIT License:
 
-Embedded within sqlite3-binding.c/.h is the SQLite amalgamation itself, which is
-in the public domain (https://www.sqlite.org/copyright.html).
+    Copyright (c) 2018 G.J.R. Timmer
+
+The full upstream MIT license text is preserved verbatim in LICENSE, and the
+per-file upstream copyright headers are retained in the source. Embedded within
+sqlite3-binding.c/.h is the SQLite amalgamation itself, which is in the public
+domain (https://www.sqlite.org/copyright.html).
+
+DEVIATIONS
+
+Changes in this fork relative to upstream go-sqlite3:
+
+  - Go module path renamed from github.com/mattn/go-sqlite3 to
+    github.com/hanzoai/csqlite (go.mod).
+  - Go package renamed from `sqlite3` to `csqlite` across all sources; the
+    registered database/sql driver name remains `sqlite3` for drop-in use.
+  - The bundled SQLite amalgamation (sqlite3-binding.c/.h) is carried in-tree at
+    version 3.53.2, so the Hanzo stack depends on no external go-sqlite3 module.
+  - The `driverName` ldflags override path is updated to
+    github.com/hanzoai/csqlite.driverName.
+  - Documentation (README.md, doc.go) rebranded to Hanzo csqlite and the
+    github.com/hanzoai/csqlite import path.
+
+Encryption at rest (SQLCipher) is unchanged from upstream: the default cgo build
+compiles plain SQLite with no codec, and AES-256 at rest is obtained by linking
+the system libsqlcipher via the `libsqlite3` build tag. The hanzoai/sqlite
+wrapper is the only intended importer within the Hanzo stack.

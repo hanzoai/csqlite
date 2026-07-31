@@ -20,6 +20,15 @@ package csqlite
 #cgo CFLAGS: -DSQLITE_OMIT_DEPRECATED
 #cgo CFLAGS: -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1
 #cgo CFLAGS: -DSQLITE_ENABLE_UPDATE_DELETE_LIMIT
+// Math functions are ON by default, not behind a build tag. The pure-Go backend
+// (modernc, CGO_ENABLED=0) always has acos/cos/sin/radians/sqrt, and code above
+// this driver — hanzoai/base's search layer, for one — writes SQL that calls
+// them. Gating them on `sqlite_math_functions` meant a cgo build produced a
+// binary whose SQL surface was SMALLER than the pure-Go one, and nothing said so
+// until a query returned "no such function: acos". Two backends that answer
+// differently is the bug; this makes csqlite a drop-in for the pure-Go driver.
+#cgo CFLAGS: -DSQLITE_ENABLE_MATH_FUNCTIONS
+#cgo LDFLAGS: -lm
 #cgo CFLAGS: -Wno-deprecated-declarations
 #cgo openbsd CFLAGS: -I/usr/local/include
 #cgo openbsd LDFLAGS: -L/usr/local/lib

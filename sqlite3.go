@@ -28,6 +28,14 @@ package csqlite
 // until a query returned "no such function: acos". Two backends that answer
 // differently is the bug; this makes csqlite a drop-in for the pure-Go driver.
 #cgo CFLAGS: -DSQLITE_ENABLE_MATH_FUNCTIONS
+// FTS5 is ON by default for the same reason as the math functions above: the
+// pure-Go backend this driver stands in for (modernc, what hanzoai/sqlite ships
+// when CGO_ENABLED=0) compiles with ENABLE_FTS5, and a cgo build without it
+// answered `CREATE VIRTUAL TABLE .. USING fts5` with "no such module: fts5" —
+// measured through hanzoai/sqlite with the same probe on both backends. FTS5 is
+// the sanctioned full-text engine; FTS3 above is upstream-mattn legacy the
+// pure-Go side does not even have, so nothing new may be written against it.
+#cgo CFLAGS: -DSQLITE_ENABLE_FTS5
 #cgo LDFLAGS: -lm
 #cgo CFLAGS: -Wno-deprecated-declarations
 #cgo openbsd CFLAGS: -I/usr/local/include

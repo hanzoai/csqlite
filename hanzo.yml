@@ -1,0 +1,10 @@
+# cgo SQLite driver (a go-sqlite3 fork carrying the sqlite amalgamation).
+# Gate: the full unit suite, which compiles the bundled C and exercises the
+# driver against a real on-disk database. CGO is the point of this package, so
+# the gate must be the cgo build, not a pure-Go type check.
+test:
+  - name: test
+    run: |
+      set -euo pipefail
+      go build ./...
+      go test ./...

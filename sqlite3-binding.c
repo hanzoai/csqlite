@@ -18707,7 +18707,7 @@ struct sqlite3 {
   int nMaxSorterMmap;           /* Maximum size of regions mapped by sorter */
   struct sqlite3InitInfo {      /* Information used during initialization */
     Pgno newTnum;               /* Rootpage of table being initialized */
-    u8 iDb;                     /* Which db file is being initialized */
+    int iDb;                    /* Which db file is being initialized */
     u8 busy;                    /* TRUE if currently initializing */
     unsigned orphanTrigger : 1; /* Last statement is orphaned TEMP trigger */
     unsigned imposterTable : 2; /* Building an imposter table */
@@ -24341,7 +24341,7 @@ typedef struct VdbeTxtBlbCache VdbeTxtBlbCache;
 typedef struct VdbeCursor VdbeCursor;
 struct VdbeCursor {
   u8 eCurType;            /* One of the CURTYPE_* values above */
-  i8 iDb;                 /* Index of cursor database in db->aDb[] */
+  int iDb;                /* Index of cursor database in db->aDb[] */
   u8 nullRow;             /* True if pointing to a row with no data */
   u8 deferredMoveto;      /* A call to sqlite3BtreeMoveto() is needed */
   u8 isTable;             /* True for rowid tables.  False for indexes */
@@ -190165,8 +190165,8 @@ static const int aHardLimit[] = {
 #if SQLITE_MAX_FUNCTION_ARG<0 || SQLITE_MAX_FUNCTION_ARG>32767
 # error SQLITE_MAX_FUNCTION_ARG must be between 0 and 32767
 #endif
-#if SQLITE_MAX_ATTACHED<0 || SQLITE_MAX_ATTACHED>125
-# error SQLITE_MAX_ATTACHED must be between 0 and 125
+#if SQLITE_MAX_ATTACHED<0
+# error SQLITE_MAX_ATTACHED must not be negative
 #endif
 #if SQLITE_MAX_LIKE_PATTERN_LENGTH<1
 # error SQLITE_MAX_LIKE_PATTERN_LENGTH must be at least 1

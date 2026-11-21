@@ -1,5 +1,7 @@
 # Hanzo csqlite
 
+[![Open in Hanzo](https://hanzo.app/badges/open-in-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/csqlite&ref=main&action=open) [![Edit with Hanzo](https://hanzo.app/badges/edit-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/csqlite&ref=main&action=edit) [![Deploy with Hanzo](https://hanzo.app/badges/deploy-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/csqlite&ref=main&action=deploy)
+
 Self-contained cgo SQLite bindings for Go's `database/sql` — the `c` is the
 C/cgo layer. This is a fork of [go-sqlite3](https://github.com/mattn/go-sqlite3)
 (`package csqlite`), vendored in-tree so the Hanzo stack depends on **zero**
